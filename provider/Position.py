@@ -4,6 +4,8 @@ class Position:
 
     def __init__(self):
         self.source = ''
+        self.item_list = ''
+        self.page =     ''
         self.link = ''
         self.title = ''
         self.site = ''
@@ -14,7 +16,9 @@ class Position:
         self.status = ''
         self.scrapping_datetime = ''
 
-    def newPosition(self, source, link, title, site, code, publication_date, subscription_deadline, type, status, scrapping_datetime):
+    def newPosition(self, page, item_list, source, link, title, site, code, publication_date, subscription_deadline, type, status, scrapping_datetime):
+        self.page = page
+        self.item_list = item_list
         self.source = source
         self.link = link
         self.title = title
