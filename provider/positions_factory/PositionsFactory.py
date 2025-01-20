@@ -1,16 +1,16 @@
 from datetime import datetime
 
-from provider.Position import Position
+from provider.positions_factory.Position import Position
 from playwright.sync_api import sync_playwright
 
-from provider.Source import Source
-from provider.SourceType import SourceType
+from provider.sources_factory.Source import Source
+from provider.sources_factory.SourceType import SourceType
 
 
-class SourceFactory:
+class PositionsFactory:
 
     @staticmethod
-    def getPositionsFromSource(source: Source):
+    def getPositionsFromGupySource(source: Source):
 
         with sync_playwright() as play:
             # browser = play.chromium.launch(headless=True)
@@ -49,7 +49,7 @@ class SourceFactory:
                     title = item.query_selector("div.sc-d1f2599d-2").text_content().strip()
                     link = item.query_selector("a").get_attribute("href").strip()
                     site = item.query_selector("div.sc-d1f2599d-3.dsYcYo").text_content().strip()
-                    code = SourceFactory.__getPositionNumberFromLink__(link)
+                    code = PositionsFactory.__getGupyPositionNumberFromLink__(link)
 
                     position.newPosition(page,item_list, source.source_name, link, title, site, code, "", "", SourceType.GUPY, "", str(datetime.now()))
                     position_list.append(position)
@@ -71,7 +71,7 @@ class SourceFactory:
             return position_list
 
 
-    def __getPositionNumberFromLink__(link: str):
+    def __getGupyPositionNumberFromLink__(link: str):
 
         final = link.replace('?jobBoardSource=gupy_public_page', '')
         final = final.replace('/jobs/', '')
